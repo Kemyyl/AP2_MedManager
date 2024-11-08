@@ -1,6 +1,6 @@
 using System;
 
-namespace ASPBookProject.Models;
+namespace AP2_MedManager.Models;
 
 public class Medicament
 {

@@ -1,5 +1,49 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<Patient>
 @{
+
+
+
+    <html>
+
+    <head>
+        <title>Index</title>
+    </head>
+
+    <body>
+        <h1>Liste des Patient</h1>
+
+        <table class="table table-dark table-striped-columns">
+
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Sexe</th>
+                <th>Âge</th>
+                <th>Poids</th>
+                <th>Numéro de sécurité sociale</th>
+                <th>Edit </th>
+                <th>Delete </th>
+                <th></th>
+            </tr>
+            @foreach (var patient in Model)
+            {
+                <tr>
+                    <td>@patient.PatientId</td>
+                    <td>@patient.Nom_p</td>
+                    <td>@patient.Prenom_p</td>
+                    <td>@patient.Sexe_p</td>
+                    <td>@patient.Age_p</td>
+                    <td>@patient.Poids_p</td>
+                    <td>@patient.Num_secu</td>
+
+                    <TD><a asp-action="Edit" asp-route-id="@patient.PatientId"> <i class="bi bi-pencil-fill"></i></a> </TD>
+                    <TD><a asp-action="Delete" asp-route-id="@patient.PatientId"> <i class="bi bi-trash3-fill"></i></a></TD>
+                </tr>
+
+            }
+        </table>
+        <a asp-action="Ajouter" class="btn btn-primary">Create new Professor</a>
+    </body>
+
+    </html>
 }

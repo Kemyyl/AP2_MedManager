@@ -1,42 +1,59 @@
-using ASPBookProject.Data;
-using ASPBookProject.Models;
+using AP2_MedManager.Data;
+using AP2_MedManager.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
-// Modèle ViewModel
-public class PatientEditViewModel
-{
-    public Patient? Patient { get; set; }
-    public List<Antecedent>? Antecedents { get; set; }
-    public List<Allergie>? Allergies { get; set; }
-    public List<int> SelectedAntecedentIds { get; set; } = new List<int>();
-    public List<int> SelectedAllergieIds { get; set; } = new List<int>();
-}
 
-namespace ASPBookProject.Controllers
+
+namespace AP2_MedManager.Controllers
 {
     public class PatientController : Controller
     {
         // 
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _dbContext;
 
         // Controleur, injection de dependance
-        public PatientController(ApplicationDbContext context)
+        public PatientController(ApplicationDbContext dbContext)
         {
-            _context = context;
+            _dbContext = dbContext;
         }
 
         // GET: PatientController
         public ActionResult Index()
         {
+            return View(_dbContext.Patients);
+        }
+
+
+        [HttpGet]
+        public IActionResult Ajouter()
+        {
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Patient patient)
+        {
+            // verification de la validite du model avec ModelState
+            if (ModelState.IsValid)
+        {
+            _dbContext.Add(patient); // L'ID sera généré automatiquement
+            await _dbContext.SaveChangesAsync();
+            return RedirectToAction(nameof(Index)); // Redirige vers l'index après la création
+        }
+
+            _dbContext.Patients.Add(patient);
+            _dbContext.SaveChanges();
+            return View("Index", _dbContext.Patients); // retourne la vue Index.cshtml avec la nouvelle liste
+            
+        }
+
 
         // Edit: PatientController 
         public async Task<IActionResult> Edit(int id)
         {
-            var patient = await _context.Patients
+            var patient = await _dbContext.Patients
                 .Include(p => p.Antecedents)
                 .Include(p => p.Allergies)
                 .FirstOrDefaultAsync(p => p.PatientId == id);
@@ -49,8 +66,8 @@ namespace ASPBookProject.Controllers
             var viewModel = new PatientEditViewModel
             {
                 Patient = patient,
-                Antecedents = await _context.Antecedents.ToListAsync(),
-                Allergies = await _context.Allergies.ToListAsync(),
+                Antecedents = await _dbContext.Antecedents.ToListAsync(),
+                Allergies = await _dbContext.Allergies.ToListAsync(),
                 SelectedAntecedentIds = patient.Antecedents.Select(a => a.AntecedentId).ToList() ?? new List<int>(),
                 SelectedAllergieIds = patient.Allergies.Select(a => a.AllergieId).ToList() ?? new List<int>()
             };
@@ -71,7 +88,7 @@ namespace ASPBookProject.Controllers
             {
                 try
                 {
-                    var patient = await _context.Patients
+                    var patient = await _dbContext.Patients
                         .Include(p => p.Antecedents)
                         .Include(p => p.Allergies)
                         .FirstOrDefaultAsync(p => p.PatientId == id);
@@ -91,7 +108,7 @@ namespace ASPBookProject.Controllers
                     patient.Allergies.Clear();
                     if (viewModel.SelectedAllergieIds != null)
                     {
-                        var selectedAllergies = await _context.Allergies
+                        var selectedAllergies = await _dbContext.Allergies
                             .Where(a => viewModel.SelectedAllergieIds.Contains(a.AllergieId))
                             .ToListAsync();
                         foreach (var allergie in selectedAllergies)
@@ -104,7 +121,7 @@ namespace ASPBookProject.Controllers
                     patient.Antecedents.Clear();
                     if (viewModel.SelectedAntecedentIds != null)
                     {
-                        var selectedAntecedents = await _context.Antecedents
+                        var selectedAntecedents = await _dbContext.Antecedents
                             .Where(a => viewModel.SelectedAntecedentIds.Contains(a.AntecedentId))
                             .ToListAsync();
                         foreach (var antecedent in selectedAntecedents)
@@ -112,8 +129,8 @@ namespace ASPBookProject.Controllers
                             patient.Antecedents.Add(antecedent);
                         }
                     }
-                    _context.Entry(patient).State = EntityState.Modified;
-                    await _context.SaveChangesAsync();
+                    _dbContext.Entry(patient).State = EntityState.Modified;
+                    await _dbContext.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
@@ -130,17 +147,26 @@ namespace ASPBookProject.Controllers
             }
 
             // Si nous arrivons ici, quelque chose a échoué, réafficher le formulaire
-            viewModel.Antecedents = await _context.Antecedents.ToListAsync();
-            viewModel.Allergies = await _context.Allergies.ToListAsync();
+            viewModel.Antecedents = await _dbContext.Antecedents.ToListAsync();
+            viewModel.Allergies = await _dbContext.Allergies.ToListAsync();
             return View(viewModel);
         }
 
         private bool PatientExists(int id)
         {
-            return _context.Patients.Any(e => e.PatientId == id);
+            return _dbContext.Patients.Any(e => e.PatientId == id);
         }
 
 
 
     }
+}
+
+public class PatientEditViewModel
+{
+    public Patient? Patient { get; set; }
+    public List<Antecedent>? Antecedents { get; set; }
+    public List<Allergie>? Allergies { get; set; }
+    public List<int> SelectedAntecedentIds { get; set; } = new List<int>();
+    public List<int> SelectedAllergieIds { get; set; } = new List<int>();
 }

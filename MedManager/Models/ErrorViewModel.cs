@@ -1,4 +1,4 @@
-namespace MedManager.Models;
+namespace AP2_MedManager.Models;
 
 public class ErrorViewModel
 {

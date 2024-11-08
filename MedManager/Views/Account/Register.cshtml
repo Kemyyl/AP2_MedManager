@@ -1,0 +1,72 @@
+﻿﻿@{ 
+    Layout = null;
+    ViewData["Title"] = "Register | Ap2MedManager"; 
+
+}
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/register.css" asp-append-version="true" />
+  </head>
+
+@model AP2_MedManager.ViewModels.RegisterViewModel
+
+<body>
+<div class="container right-panel-active" id="container">
+	<div class="form-container sign-up-container">
+        <form asp-action="Register" method="post">
+			<h1>Créer un compte</h1>
+            <div class="form-group">
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nom_m"></label>
+                <input asp-for="Nom_m" class="form-control" />
+                <span asp-validation-for="Nom_m" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Prenom_m"></label>
+                <input asp-for="Prenom_m" class="form-control" />
+                <span asp-validation-for="Prenom_m" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date_naissance_m"></label>
+                <input asp-for="Date_naissance_m" class="form-control" type="date" />
+                <span asp-validation-for="Date_naissance_m" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="form-control" type="password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword"></label>
+                <input asp-for="ConfirmPassword" class="form-control" type="password" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">S'inscrire</button>
+        </form>
+	</div>
+	<div class="overlay-container">
+		<div class="overlay">
+			<div class="overlay-panel overlay-left">
+				<h1>Welcome Back!</h1>
+				<p>To keep connected with us please login with your personal info</p>
+                <div asp-validation-summary="All" class="text-danger"></div>
+                    <a href="@Url.Action("Login", "Account")">Déjà un compte ? Connexion</a>
+                </div>			
+            </div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

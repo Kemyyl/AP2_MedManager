@@ -1,0 +1,57 @@
+@*
+*@
+@model Patient
+
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Ajouter un nouveau patient</title>
+</head>
+
+<body>
+    <h2>Ajouter un Patient</h2>
+
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="Nom_p" class="control-label"></label>
+            <input asp-for="Nom_p" class="form-control" />
+            <span asp-validation-for="Nom_p" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Prenom_p" class="control-label"></label>
+            <input asp-for="Prenom_p" class="form-control" />
+            <span asp-validation-for="Prenom_p" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="Sexe_p" class="control-label"></label>
+            <input asp-for="Sexe_p" class="form-control" />
+            <span asp-validation-for="Sexe_p" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="Age_p" class="control-label"></label>
+            <input asp-for="Age_p" class="form-control" />
+            <span asp-validation-for="Age_p" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="Poids_p" class="control-label"></label>
+            <input asp-for="Poids_p" class="form-control" />
+            <span asp-validation-for="Poids_p" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="Num_secu" class="control-label"></label>
+            <input asp-for="Num_secu" class="form-control" />
+            <span asp-validation-for="Num_secu" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+        </div>
+        <input type="submit" value="Ajouter Patient" />
+
+        @* <button type="submit" class="btn btn-primary">Ajouter</button> *@
+    </form>
+</body>
+
+</html>
