@@ -1,0 +1,17 @@
+﻿@model Allergie
+
+<h2>Modifier une allergie</h2>
+
+<form asp-action="Modifier" method="post">
+
+    <input type="hidden" asp-for="AllergieId" />
+
+    <div class="form-group">
+        <label asp-for="Libelle_al" class="control-label">Nom de l'allergie</label>
+        <input asp-for="Libelle_al" class="form-control" />
+        <span asp-validation-for="Libelle_al" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<!-- Compare this snippet from MedManager/Views/Allergie/Modifier.cshtml: -->

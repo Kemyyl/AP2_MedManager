@@ -1,34 +1,33 @@
-﻿@*// Vue (Edit.cshtml)
-@model PatientEditViewModel
+﻿@model Patient
 
 <h2>Éditer Patient</h2>
 
-<form asp-action="Edit">
+<form asp-action="Modifier" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="hidden" asp-for="Patient.PatientId" />
+    <input type="hidden" asp-for="PatientId" />
 
     <div class="form-group">
-        <label asp-for="Patient.Nom_p" class="control-label"></label>
-        <input asp-for="Patient.Nom_p" class="form-control" />
-        <span asp-validation-for="Patient.Nom_p" class="text-danger"></span>
+        <label asp-for="Nom_p" class="control-label"></label>
+        <input asp-for="Nom_p" class="form-control" />
+        <span asp-validation-for="Nom_p" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Patient.Prenom_p" class="control-label"></label>
-        <input asp-for="Patient.Prenom_p" class="form-control" />
-        <span asp-validation-for="Patient.Prenom_p" class="text-danger"></span>
+        <label asp-for="Prenom_p" class="control-label"></label>
+        <input asp-for="Prenom_p" class="form-control" />
+        <span asp-validation-for="Prenom_p" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Patient.Sexe_p" class="control-label"></label>
-        <input asp-for="Patient.Sexe_p" class="form-control" />
-        <span asp-validation-for="Patient.Sexe_p" class="text-danger"></span>
+        <label asp-for="Sexe_p" class="control-label"></label>
+        <input asp-for="Sexe_p" class="form-control" />
+        <span asp-validation-for="Sexe_p" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Patient.Num_secu" class="control-label"></label>
-        <input asp-for="Patient.Num_secu" class="form-control" />
-        <span asp-validation-for="Patient.Num_secu" class="text-danger"></span>
+        <label asp-for="Num_secu" class="control-label"></label>
+        <input asp-for="Num_secu" class="form-control" />
+        <span asp-validation-for="Num_secu" class="text-danger"></span>
     </div>
 
-    <h4>Antécédents</h4>
+    @* <h4>Antécédents</h4>
     <div class="form-group">
         @foreach (var antecedent in Model.Antecedents)
         {
@@ -52,7 +51,7 @@
                 <label class="form-check-label">@allergie.Libelle_al</label>
             </div>
         }
-    </div>
+    </div> *@
 
     <div class="form-group">
         <input type="submit" value="Enregistrer" class="btn btn-primary" />
@@ -67,4 +66,4 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-}*@
+}
