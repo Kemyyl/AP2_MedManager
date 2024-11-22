@@ -1,0 +1,14 @@
+@model Medicament
+
+<h2>Supprimer un médicament</h2>
+<form asp-action="Supprimer" method="post">
+
+    <input type="hidden" asp-for="MedicamentId" />
+
+    <div class="form-group">
+        <h2>Voulez vous vraiment supprimer le médicament @Model.Libelle_med ?</h2>
+        <br />
+        <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>
+        <input type="submit" class="btn btn-danger" value="Supprimer" />
+    </div>
+</form>

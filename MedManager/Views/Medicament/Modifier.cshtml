@@ -1,0 +1,22 @@
+@model Medicament
+
+<h2>Modifier un médicament</h2>
+
+<form asp-action="Modifier" method="post">
+
+    <input type="hidden" asp-for="MedicamentId" />
+
+    <div class="form-group">
+        <label asp-for="Libelle_med" class="control-label">Nom du médicament</label>
+        <input asp-for="Libelle_med" class="form-control" />
+        <span asp-validation-for="Libelle_med" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Contr_indication" class="control-label">Description</label>
+        <input asp-for="Contr_indication" class="form-control" />
+        <span asp-validation-for="Contr_indication" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

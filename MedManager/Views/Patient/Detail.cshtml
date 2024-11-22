@@ -1,0 +1,16 @@
+@model Patient
+
+
+<h2>Patient Details</h2>
+<form asp-action="Detail" method="Get">
+    <div >
+        <label asp-for="Nom_p" class="control-label"></label>
+        <input asp-for="Nom_p" class="form-control" readonly />
+    </div>
+    <div >
+        <label asp-for="Prenom_p" class="control-label"></label>
+        <input asp-for="Prenom_p" class="form-control" readonly />
+    </div>
+</form>
+
+    

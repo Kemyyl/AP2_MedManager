@@ -4,21 +4,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AP2_MedManager.Controllers
 {
-    public class AllergieController : Controller
-    {
-         private readonly ApplicationDbContext _dbContext;
+    public class AntecedentController : Controller
 
-         
-        public AllergieController(ApplicationDbContext dbContext)
+    {
+        private readonly ApplicationDbContext _dbContext;
+
+        public AntecedentController(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
-        // GET: AllergieControllers
+        // GET: AntecedentControllers
         public ActionResult Index()
         {
-            List<Allergie> allergies = _dbContext.Allergies.ToList();
-            allergies = _dbContext.Allergies.ToList();
-            return View(allergies);
+            List<Antecedent> antecedents = _dbContext.Antecedents.ToList();
+            antecedents = _dbContext.Antecedents.ToList();
+            return View(antecedents);
         }
 
         [HttpGet]
@@ -28,14 +28,14 @@ namespace AP2_MedManager.Controllers
         }
 
         [HttpPost]
-        public IActionResult Ajouter(Allergie allergie)
+        public IActionResult Ajouter(Antecedent antecedent)
         {
             if (!ModelState.IsValid)
             {
-              return View();
+                return View();
             }
 
-            _dbContext.Allergies.Add(allergie);
+            _dbContext.Antecedents.Add(antecedent);
             _dbContext.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -43,24 +43,24 @@ namespace AP2_MedManager.Controllers
         [HttpGet]
         public IActionResult Modifier(int id)
         {
-            Allergie allergie = _dbContext.Allergies.FirstOrDefault(a => a.AllergieId == id);
-            if (allergie == null)
+            Antecedent antecedent = _dbContext.Antecedents.FirstOrDefault(a => a.AntecedentId == id);
+            if (antecedent == null)
             {
                 return NotFound();
             }
 
-            return View(allergie);
+            return View(antecedent);
         }
 
         [HttpPost]
-        public IActionResult Modifier(Allergie allergie)
+        public IActionResult Modifier(Antecedent antecedent)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
 
-            _dbContext.Allergies.Update(allergie);
+            _dbContext.Antecedents.Update(antecedent);
             _dbContext.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -68,30 +68,29 @@ namespace AP2_MedManager.Controllers
         [HttpGet]
         public IActionResult Supprimer(int id)
         {
-            Allergie allergie = _dbContext.Allergies.FirstOrDefault(a => a.AllergieId == id);
-            if (allergie == null)
+            Antecedent antecedent = _dbContext.Antecedents.FirstOrDefault(a => a.AntecedentId == id);
+            if (antecedent == null)
             {
                 return NotFound();
             }
 
-       return View(allergie);
+            return View(antecedent);
         }
 
-        [HttpPost , ActionName("Supprimer")]
+        [HttpPost, ActionName("Supprimer")]
         public IActionResult SupprimerValider(int id)
         {
-            Allergie allergie = _dbContext.Allergies.FirstOrDefault(a => a.AllergieId == id);
-            if (allergie == null)
+            Antecedent antecedent = _dbContext.Antecedents.FirstOrDefault(a => a.AntecedentId == id);
+            if (antecedent == null)
             {
                 return NotFound();
             }
 
-            _dbContext.Allergies.Remove(allergie);
+            _dbContext.Antecedents.Remove(antecedent);
             _dbContext.SaveChanges();
             return RedirectToAction("Index");
         }
-
-
-
     }
+
+
 }

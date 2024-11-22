@@ -103,7 +103,7 @@ namespace AP2_MedManager.Controllers
             //return View();
         }
 
-        [HttpPost]
+        [HttpPost, ActionName("Supprimer")]
         public IActionResult SupprimerValider(int MedecinId)
 
         {

@@ -1,13 +1,13 @@
-@model Medecin
+﻿@model Antecedent
 
 
 
-<h1>Supprimer une allergie</h1>
+<h1>Supprimer un antécédent</h1>
 
 <form asp-action="Supprimer" method="post">
     <div class="form-group">
-        <input type="hidden" asp-for="MedecinId" />
-        <h2>Voulez vous vraiment supprimer l'allergie @Model.MedecinId ?</h2>
+        <input type="hidden" asp-for="AntecedentId" />
+        <h2>Voulez vous vraiment supprimer l'antecedent @Model.Libelle_a ?</h2>
         <br />
         <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>
         <input type="submit" class="btn btn-danger" value="Supprimer" />

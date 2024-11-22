@@ -1,19 +1,10 @@
-@*
-*@
+
 @model Patient
 
 
-<html>
-
-<head>
-    <meta name="viewport" content="width=device-width" />
-
-</head>
-
-<body>
     <h2>Ajouter un Patient</h2>
 
-    <form asp-action="Create" method="post">
+    <form asp-action="Ajouter" method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <div class="form-group">
@@ -46,15 +37,6 @@
 
             <span asp-validation-for="Sexe_p" class="text-danger"></span>
         </div>
-        @* <div>
-        <label asp-for="Sexe_p" class="control-label"></label>
-        <select asp-for="Sexe_p" class="form-control">
-        <option value="Femme">Femme</option>
-        <option value="Homme">Homme</option>
-        <option value="Non Genre">X</option>
-        </select>
-        <span asp-validation-for="Sexe_p" class="text-danger"></span>
-        </div> *@
         <div>
             <label asp-for="Age_p" class="control-label">Âge</label>
             <input asp-for="Age_p" class="form-control" type = "date"/>
@@ -70,11 +52,9 @@
             <input asp-for="Num_secu" class="form-control" type = "number" />
             <span asp-validation-for="Num_secu" class="text-danger"></span>
         </div>
+       
         <div class="form-group">
         </div>
         <input type="submit" value="Ajouter Patient" />
 
     </form>
-</body>
-
-</html>

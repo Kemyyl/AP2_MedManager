@@ -1,17 +1,21 @@
 using System;
 using AP2_MedManager.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using AP2_MedManager.ViewModels;
+
+
 
 namespace AP2_MedManager.Data;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : IdentityDbContext<ApplicationUtilisateur>
 {
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options)
+    {
+    }
 
-
-    // Nous allons creer un dbset pour chaque table de notre base de donnees
-    // Dbset est une classe generique qui represente une table dans la base de donnees
-    // Elle est responsable du mapping objet-relationnel
-
+    
 
     public DbSet<Patient> Patients => Set<Patient>();
     public DbSet<Medecin> Medecins => Set<Medecin>();
@@ -21,10 +25,8 @@ public class ApplicationDbContext : DbContext
     public DbSet<Antecedent> Antecedents => Set<Antecedent>();
 
 
-    // Constructeur
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-    {
-    }
+
+
 
 
     // Ajout de mock data
@@ -52,9 +54,7 @@ public class ApplicationDbContext : DbContext
             .HasOne(o => o.Patient)
             .WithOne(p => p.Ordonnance)
             .HasForeignKey<Ordonnance>(o => o.PatientId);
-
-        
-        
+        base .OnModelCreating(modelBuilder);              
     }
 
 

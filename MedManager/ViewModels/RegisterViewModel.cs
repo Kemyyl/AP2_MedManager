@@ -28,6 +28,4 @@ public class RegisterViewModel
     [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
     public required string ConfirmPassword { get; set; }
 
-
-    public DateTime Date_naissance_m { get; set; }
 }

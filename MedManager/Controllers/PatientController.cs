@@ -33,7 +33,7 @@ namespace AP2_MedManager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Patient patient)
+        public async Task<IActionResult> Ajouter(Patient patient)
         {
             // verification de la validite du model avec ModelState
             if (ModelState.IsValid)
@@ -53,14 +53,14 @@ namespace AP2_MedManager.Controllers
         public IActionResult Modifier(int id)
         {
             // Return View au sein de l'action Edit retournera la vue Edit.cshtml
-            Patient? intrs = _dbContext.Patients.FirstOrDefault<Patient>(ins => ins.PatientId == id);
+            Patient patient = _dbContext.Patients.FirstOrDefault<Patient>(ins => ins.PatientId == id);
 
-            if (intrs != null)
+            if (patient != null)
             {
-                return View(intrs);
+                return NotFound();
             }
 
-            return NotFound();
+            return View(patient);
 
         }
 
@@ -70,13 +70,54 @@ namespace AP2_MedManager.Controllers
             // verification de la validite du model avec ModelState
             if (!ModelState.IsValid)
             {
-                return View(patient);
+                return View();
             }
 
             _dbContext.Patients.Update(patient);
             _dbContext.SaveChanges();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult Supprimer(int id)
+        {
+            Patient patient = _dbContext.Patients.FirstOrDefault(a => a.PatientId == id);
+            if (patient == null)
+            {
+                return NotFound();
+            }
+
+            return View(patient);
+        }
+
+        [HttpPost, ActionName("Supprimer")]
+        public IActionResult SupprimerValider(int id)
+        {
+            Patient patient = _dbContext.Patients.FirstOrDefault(a => a.PatientId == id);
+            if (patient == null)
+            {
+                return NotFound();
+            }
+
+            _dbContext.Patients.Remove(patient);
+            _dbContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Detail(int id)
+        {
+            var patient = _dbContext.Patients.FirstOrDefault(a => a.PatientId == id);
+
+            if (patient == null)
+            {
+                return NotFound();
+            }
+            ViewBag.patient = patient;
+
+            return View(patient);
+        }
+
 
     }
 }
