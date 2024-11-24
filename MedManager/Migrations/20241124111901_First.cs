@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MedManager.Migrations
 {
     /// <inheritdoc />
-    public partial class Inizialise : Migration
+    public partial class First : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -70,6 +70,9 @@ namespace MedManager.Migrations
                 {
                     Id = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Date_naissance_m = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Role = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     NormalizedUserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
@@ -96,30 +99,6 @@ namespace MedManager.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Medecins",
-                columns: table => new
-                {
-                    MedecinId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nom_m = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Prenom_m = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Date_naissance_m = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Login_m = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Password_m = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Role = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Medecins", x => x.MedecinId);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -400,21 +379,22 @@ namespace MedManager.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Posologie = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Duree_traitement = table.Column<string>(type: "longtext", nullable: false)
+                    Date_debut = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Date_fin = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Instructions_specifique = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Instructions_specifique = table.Column<string>(type: "longtext", nullable: false)
+                    MedecinId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    MedecinId = table.Column<int>(type: "int", nullable: false),
                     PatientId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Ordonnances", x => x.OrdonnanceId);
                     table.ForeignKey(
-                        name: "FK_Ordonnances_Medecins_MedecinId",
+                        name: "FK_Ordonnances_AspNetUsers_MedecinId",
                         column: x => x.MedecinId,
-                        principalTable: "Medecins",
-                        principalColumn: "MedecinId",
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Ordonnances_Patients_PatientId",
@@ -520,8 +500,7 @@ namespace MedManager.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Ordonnances_PatientId",
                 table: "Ordonnances",
-                column: "PatientId",
-                unique: true);
+                column: "PatientId");
         }
 
         /// <inheritdoc />
@@ -567,16 +546,13 @@ namespace MedManager.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "Medicaments");
 
             migrationBuilder.DropTable(
                 name: "Ordonnances");
 
             migrationBuilder.DropTable(
-                name: "Medecins");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Patients");

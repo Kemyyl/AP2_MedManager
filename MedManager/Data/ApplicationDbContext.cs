@@ -8,10 +8,9 @@ using AP2_MedManager.ViewModels;
 
 namespace AP2_MedManager.Data;
 
-public class ApplicationDbContext : IdentityDbContext<ApplicationUtilisateur>
+public class ApplicationDbContext : IdentityDbContext<Medecin>
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options)
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
     {
     }
 
@@ -33,28 +32,42 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUtilisateur>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Patient>()
-          .HasMany(p => p.Allergies)
-          .WithMany(a => a.Patients)
-          .UsingEntity(j => j.ToTable("AllergiePatient")); ;
+             .HasMany(p => p.Allergies)
+             .WithMany(a => a.Patients)
+              .UsingEntity(j => j.ToTable("AllergiePatient")); ;
 
         modelBuilder.Entity<Patient>()
             .HasMany(p => p.Antecedents)
             .WithMany(a => a.Patients)
             .UsingEntity(j => j.ToTable("AntecedentPatient")); ;
 
-        modelBuilder.Entity<Allergie>()
-            .HasMany(a => a.Medicaments)
-            .WithMany(m => m.Allergies);
+        modelBuilder.Entity<Medicament>()
+         .HasMany(m => m.Antecedents)
+         .WithMany(a => a.Medicaments)
+         .UsingEntity(j => j.ToTable("AntecedentMedicament"));
 
-        modelBuilder.Entity<Antecedent>()
-            .HasMany(a => a.Medicaments)
-            .WithMany(m => m.Antecedents);
+        modelBuilder.Entity<Medicament>()
+            .HasMany(m => m.Allergies)
+            .WithMany(a => a.Medicaments)
+            .UsingEntity(j => j.ToTable("AllergieMedicament"));
+
+        modelBuilder.Entity<Ordonnance>()
+            .HasMany(o => o.Medicaments)
+            .WithMany(m => m.Ordonnances)
+            .UsingEntity(j => j.ToTable("MedicamentOrdonnance"));
+
 
         modelBuilder.Entity<Ordonnance>()
             .HasOne(o => o.Patient)
-            .WithOne(p => p.Ordonnance)
-            .HasForeignKey<Ordonnance>(o => o.PatientId);
-        base .OnModelCreating(modelBuilder);              
+            .WithMany(p => p.Ordonnances)
+            .HasForeignKey(o => o.PatientId);
+
+        modelBuilder.Entity<Ordonnance>()
+        .HasOne(o => o.Medecin)
+        .WithMany(m => m.Ordonnances)
+        .HasForeignKey(o => o.MedecinId);
+
+        base.OnModelCreating(modelBuilder);
     }
 
 

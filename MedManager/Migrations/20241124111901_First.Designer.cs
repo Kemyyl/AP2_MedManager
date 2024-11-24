@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241114160602_Inizialise")]
-    partial class Inizialise
+    [Migration("20241124111901_First")]
+    partial class First
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,7 +59,7 @@ namespace MedManager.Migrations
                     b.ToTable("Antecedents");
                 });
 
-            modelBuilder.Entity("AP2_MedManager.Models.ApplicationUtilisateur", b =>
+            modelBuilder.Entity("AP2_MedManager.Models.Medecin", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(255)");
@@ -70,6 +70,9 @@ namespace MedManager.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("longtext");
+
+                    b.Property<DateTime>("Date_naissance_m")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -101,6 +104,10 @@ namespace MedManager.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("longtext");
 
@@ -121,42 +128,6 @@ namespace MedManager.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
-                });
-
-            modelBuilder.Entity("AP2_MedManager.Models.Medecin", b =>
-                {
-                    b.Property<int>("MedecinId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("MedecinId"));
-
-                    b.Property<DateTime>("Date_naissance_m")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Login_m")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Nom_m")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Password_m")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Prenom_m")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("MedecinId");
-
-                    b.ToTable("Medecins");
                 });
 
             modelBuilder.Entity("AP2_MedManager.Models.Medicament", b =>
@@ -188,16 +159,18 @@ namespace MedManager.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("OrdonnanceId"));
 
-                    b.Property<string>("Duree_traitement")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<DateTime>("Date_debut")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("Date_fin")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Instructions_specifique")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("MedecinId")
-                        .HasColumnType("int");
+                    b.Property<string>("MedecinId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
@@ -210,8 +183,7 @@ namespace MedManager.Migrations
 
                     b.HasIndex("MedecinId");
 
-                    b.HasIndex("PatientId")
-                        .IsUnique();
+                    b.HasIndex("PatientId");
 
                     b.ToTable("Ordonnances");
                 });
@@ -265,7 +237,7 @@ namespace MedManager.Migrations
 
                     b.HasIndex("MedicamentsMedicamentId");
 
-                    b.ToTable("AllergieMedicament");
+                    b.ToTable("AllergieMedicament", (string)null);
                 });
 
             modelBuilder.Entity("AllergiePatient", b =>
@@ -295,7 +267,7 @@ namespace MedManager.Migrations
 
                     b.HasIndex("MedicamentsMedicamentId");
 
-                    b.ToTable("AntecedentMedicament");
+                    b.ToTable("AntecedentMedicament", (string)null);
                 });
 
             modelBuilder.Entity("AntecedentPatient", b =>
@@ -325,7 +297,7 @@ namespace MedManager.Migrations
 
                     b.HasIndex("OrdonnancesOrdonnanceId");
 
-                    b.ToTable("MedicamentOrdonnance");
+                    b.ToTable("MedicamentOrdonnance", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -473,8 +445,8 @@ namespace MedManager.Migrations
                         .IsRequired();
 
                     b.HasOne("AP2_MedManager.Models.Patient", "Patient")
-                        .WithOne("Ordonnance")
-                        .HasForeignKey("AP2_MedManager.Models.Ordonnance", "PatientId")
+                        .WithMany("Ordonnances")
+                        .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -569,7 +541,7 @@ namespace MedManager.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("AP2_MedManager.Models.ApplicationUtilisateur", null)
+                    b.HasOne("AP2_MedManager.Models.Medecin", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -578,7 +550,7 @@ namespace MedManager.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("AP2_MedManager.Models.ApplicationUtilisateur", null)
+                    b.HasOne("AP2_MedManager.Models.Medecin", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -593,7 +565,7 @@ namespace MedManager.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AP2_MedManager.Models.ApplicationUtilisateur", null)
+                    b.HasOne("AP2_MedManager.Models.Medecin", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -602,7 +574,7 @@ namespace MedManager.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("AP2_MedManager.Models.ApplicationUtilisateur", null)
+                    b.HasOne("AP2_MedManager.Models.Medecin", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -616,7 +588,7 @@ namespace MedManager.Migrations
 
             modelBuilder.Entity("AP2_MedManager.Models.Patient", b =>
                 {
-                    b.Navigation("Ordonnance");
+                    b.Navigation("Ordonnances");
                 });
 #pragma warning restore 612, 618
         }

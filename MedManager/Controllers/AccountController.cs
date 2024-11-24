@@ -1,17 +1,20 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+using AP2_MedManager.Data;
 using AP2_MedManager.Models;
 using AP2_MedManager.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AP2_MedManager.Controllers;
 
 public class AccountController : Controller
 {
-    private readonly SignInManager<ApplicationUtilisateur> _signInManager; // permet de gerer la connexion et la deconnexion des utilisateurs, nous est fourni par ASP.NET Core Identity
+    private readonly UserManager<Medecin> _userManager;
 
-    private readonly UserManager<ApplicationUtilisateur> _userManager;
-
-    public AccountController(SignInManager<ApplicationUtilisateur> signInManager, UserManager<ApplicationUtilisateur> userManager)
+    private readonly SignInManager<Medecin> _signInManager; 
+    public AccountController(SignInManager<Medecin> signInManager, UserManager<Medecin> userManager)
     {
         _signInManager = signInManager;
         _userManager = userManager;
@@ -64,12 +67,12 @@ public class AccountController : Controller
     {
         if (ModelState.IsValid)
         {
-            var user = new ApplicationUtilisateur { UserName = model.UserName, Email = model.Email };
-            var result = await _userManager.CreateAsync(user, model.Password);
+            var medecin = new Medecin { UserName = model.UserName, Email = model.Email, Role = "DefaultRole" };
+            var result = await _userManager.CreateAsync(medecin, model.Password);
 
             if (result.Succeeded)
             {
-                await _signInManager.SignInAsync(user, isPersistent: false);
+                await _signInManager.SignInAsync(medecin, isPersistent: false);
                 return RedirectToAction("Index", "Home");
             }
 

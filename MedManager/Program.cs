@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDefaultIdentity<ApplicationUtilisateur>(options =>
+builder.Services.AddDefaultIdentity<Medecin>(options =>
   {
       options.SignIn.RequireConfirmedAccount = false;
     //   options.Password.RequireDigit = true;
