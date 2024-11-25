@@ -34,9 +34,10 @@ var app = builder.Build();
 
 app.UseStaticFiles();
 app.UseAuthentication();
-app.UseAuthorization();
 app.UseRouting();
 app.UseHttpsRedirection();
+app.UseRouting();
+app.UseAuthorization();
 
 
 app.MapControllerRoute(

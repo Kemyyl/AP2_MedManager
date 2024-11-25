@@ -111,7 +111,8 @@ namespace MedManager.Migrations
                     Libelle_med = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Contr_indication = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    compteur = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

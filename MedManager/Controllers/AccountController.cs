@@ -23,12 +23,15 @@ public class AccountController : Controller
     [HttpGet]
     public IActionResult Index()
     {
+        ViewBag.HideNavBar = true;
         return View();
     }
 
     [HttpGet]
     public IActionResult Login()
     {
+        
+    
         return View();
     }
 
@@ -46,6 +49,9 @@ public class AccountController : Controller
 
             ModelState.AddModelError(string.Empty, "Invalid login attempt.");
         }
+
+        
+
 
         return View(model);
     }

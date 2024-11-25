@@ -143,6 +143,9 @@ namespace MedManager.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("compteur")
+                        .HasColumnType("int");
+
                     b.HasKey("MedicamentId");
 
                     b.ToTable("Medicaments");

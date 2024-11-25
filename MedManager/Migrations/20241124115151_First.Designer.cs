@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MedManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241124111901_First")]
+    [Migration("20241124115151_First")]
     partial class First
     {
         /// <inheritdoc />
@@ -145,6 +145,9 @@ namespace MedManager.Migrations
                     b.Property<string>("Libelle_med")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<int>("compteur")
+                        .HasColumnType("int");
 
                     b.HasKey("MedicamentId");
 

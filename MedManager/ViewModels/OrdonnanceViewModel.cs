@@ -10,7 +10,7 @@ public class OrdonnanceViewModel
 
     [StringLength(100)]
     [Required(ErrorMessage = "La posologie est requise")]
-    public string Posologie { get; set; } 
+    public string Posologie { get; set; }
 
 
     [DataType(DataType.Date)]
@@ -19,16 +19,16 @@ public class OrdonnanceViewModel
 
     [DataType(DataType.Date)]
     [Required(ErrorMessage = "Le date de fin est obligatoire")]
-    public  DateTime Date_fin { get; set; }
+    public DateTime Date_fin { get; set; }
 
     public string? Instructions_specifique { get; set; }
 
     [Required(ErrorMessage = "Veuillez sélectionner un patient")]
-     public  int? PatientId { get; set; }
+    public int? PatientId { get; set; }
 
-     public Patient? Patient {get;set;}
+    public Patient? Patient { get; set; }
 
-     public Medecin? Medecin {get;set;}
+    public Medecin? Medecin { get; set; }
     public List<Patient> Patients { get; set; } = new List<Patient>();
     public List<Medicament>? Medicaments { get; set; }
     public List<int> SelectedMedicamentId { get; set; } = new List<int>();
