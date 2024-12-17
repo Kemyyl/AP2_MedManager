@@ -47,12 +47,10 @@ app.MapControllerRoute(
 
 if (app.Environment.IsDevelopment())
 {
-    // Affiche les exceptions pour les développeurs en phase de développement
     app.UseDeveloperExceptionPage();
 }
 else
 {
-    // Middleware pour afficher une page d'erreur personnalisée en production
     app.UseExceptionHandler("../Error/Index");
     app.UseStatusCodePagesWithRedirects("../Error/Index"); // Gère les erreurs comme 404
 }

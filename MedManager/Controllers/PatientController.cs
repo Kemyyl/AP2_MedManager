@@ -1,13 +1,16 @@
 using AP2_MedManager.Data;
 using AP2_MedManager.Models;
-using Microsoft.AspNetCore.Mvc;
+using AP2_MedManager.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 
 
 
 namespace AP2_MedManager.Controllers
 {
+    [Authorize]
     public class PatientController : Controller
     {
         // 
@@ -104,19 +107,28 @@ namespace AP2_MedManager.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        public IActionResult Detail(int id)
+       
+        public async Task<IActionResult> Detail(int id)
         {
-            var patient = _dbContext.Patients.FirstOrDefault(a => a.PatientId == id);
+            var patient = await _dbContext.Patients
+                .Include(p => p.Antecedents)
+                .Include(p => p.Allergies)
+                .FirstOrDefaultAsync(p => p.PatientId == id);
 
             if (patient == null)
-            {
                 return NotFound();
-            }
-            ViewBag.patient = patient;
 
-            return View(patient);
+            var viewModel = new PatientViewModel
+            {
+                Patient = patient,
+                Antecedents = patient.Antecedents.ToList(),
+                Allergies = patient.Allergies.ToList()
+
+            };
+
+            return View(viewModel);
         }
+        
 
 
     }

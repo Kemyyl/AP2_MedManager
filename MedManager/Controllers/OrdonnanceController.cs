@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AP2_MedManager.Controllers
 {
+    [Authorize]
     public class OrdonnanceController : Controller
     {
         private readonly UserManager<Medecin> _userManager;

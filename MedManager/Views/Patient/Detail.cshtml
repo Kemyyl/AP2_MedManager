@@ -1,16 +1,45 @@
-@model Patient
+@model AP2_MedManager.ViewModels.PatientViewModel
 
+<h2>Detail du Patient</h2>
 
-<h2>Patient Details</h2>
-<form asp-action="Detail" method="Get">
-    <div >
-        <label asp-for="Nom_p" class="control-label"></label>
-        <input asp-for="Nom_p" class="form-control" readonly />
+<div class="form-group">
+    <label asp-for="Patient.Nom_p" class="control-label">Nom</label>
+       <div class="text-body-secondary">@Html.DisplayFor(model => model.Patient.Nom_p)</div>
+</div>
+<br/>
+<div class="form-group">
+    <label asp-for="Patient.Prenom_p" class="control-label">Prenom</label>
+     <div class="text-body-secondary">@Html.DisplayFor(model => model.Patient.Prenom_p)</div>
+</div>
+<br/>
+<div class="form-group">
+    <label asp-for="Patient.Sexe_p" class="control-label">Sexe</label>
+      <div class="text-body-secondary">@Html.DisplayFor(model => model.Patient.Sexe_p)</div>
+</div>
+<br/>
+<div class="form-group">
+    <label asp-for="Patient.Num_secu" class="control-label">Numéro_secu</label>
+      <div class="text-body-secondary">@Html.DisplayFor(model => model.Patient.Num_secu)</div>
+</div>
+<br/>
+<h4>Allergies</h3>
+    <div class="form-group">
+        <ul>
+            @foreach (var allergie in Model.Allergies)
+            {
+                <li>@allergie.Libelle_al</li>
+            }
+        </ul>
     </div>
-    <div >
-        <label asp-for="Prenom_p" class="control-label"></label>
-        <input asp-for="Prenom_p" class="form-control" readonly />
-    </div>
-</form>
-
-    
+    <h4>Antecedents</h3>
+        <div class="form-group">
+            <ul>
+                @foreach (var antecedent in Model.Antecedents)
+                {
+                    <li>@antecedent.Libelle_a</li>
+                }
+            </ul>
+        </div>
+        <div>
+            <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>
+        </div>

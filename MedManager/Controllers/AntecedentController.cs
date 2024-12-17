@@ -1,9 +1,11 @@
 using AP2_MedManager.Data;
 using AP2_MedManager.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AP2_MedManager.Controllers
 {
+    [Authorize]
     public class AntecedentController : Controller
 
     {
