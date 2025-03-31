@@ -32,7 +32,7 @@ public class AccountController : Controller
     {
         
     
-        return View();
+        return View("Index");
     }
 
     [HttpPost]
