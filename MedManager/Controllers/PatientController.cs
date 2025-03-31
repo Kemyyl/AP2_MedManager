@@ -25,8 +25,10 @@ namespace AP2_MedManager.Controllers
         // GET: PatientController
         public ActionResult Index()
         {
-            return View(_dbContext.Patients);
+            var patients = _dbContext.Patients.ToList();
+            return View(patients);
         }
+
 
 
         [HttpGet]
@@ -107,7 +109,7 @@ namespace AP2_MedManager.Controllers
             return RedirectToAction("Index");
         }
 
-       
+
         public async Task<IActionResult> Detail(int id)
         {
             var patient = await _dbContext.Patients
@@ -128,7 +130,7 @@ namespace AP2_MedManager.Controllers
 
             return View(viewModel);
         }
-        
+
 
 
     }
