@@ -1,9 +1,8 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System;
 
 namespace AP2_MedManager.Models;
 
-[Table("patients")]
+
 public class Patient
 {
     [Key]

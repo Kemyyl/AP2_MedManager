@@ -1,30 +1,35 @@
-﻿@using AP2_MedManager.Models
+﻿@using System.Collections
+
 @model IEnumerable<Patient>
+@{
 
-<h1 class="text-center mb-6">Liste des Patients</h1>
+    <h1 class="text-center mb-6">Liste des Patient</h1>
+    <div class="container text-center mt-4 mb-4">
+        <table class="table table-striped">
 
-<div class="container text-center mt-4 mb-4">
-    <table class="table table-striped">
-        <tr>
-            <th>Id</th>
-            <th>Nom</th>
-            <th>Prénom</th>
-            <th>Détails</th>
-            <th>Modifier</th>
-            <th>Supprimer</th>
-        </tr>
-        @foreach (var patient in Model)
-        {
             <tr>
-                <td>@patient.PatientId</td>
-                <td>@patient.Nom_p</td>
-                <td>@patient.Prenom_p</td>
-                <td><a asp-action="Detail" asp-route-id="@patient.PatientId"><i class="bi bi-eye-fill"></i></a></td>
-                <td><a asp-action="Modifier" asp-route-id="@patient.PatientId"><i class="bi bi-pencil-fill"></i></a></td>
-                <td><a asp-action="Supprimer" asp-route-id="@patient.PatientId"><i class="bi bi-trash3-fill"></i></a></td>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Details </th>
+                <th>Edit </th>
+                <th>Delete </th>
+                <th></th>
             </tr>
-        }
-    </table>
+            @foreach (var patient in Model)
+            {
+                <tr>
+                    <td>@patient.PatientId</td>
+                    <td>@patient.Nom_p</td>
+                    <td>@patient.Prenom_p</td>
+                    <TD><a asp-action="Detail" asp-route-id="@patient.PatientId"> <i class="bi bi-eye-fill"></i></a></TD>
+                    <TD><a asp-action="Modifier" asp-route-id="@patient.PatientId"> <i class="bi bi-pencil-fill"></i></a> </TD>
+                    <TD><a asp-action="Supprimer" asp-route-id="@patient.PatientId"> <i class="bi bi-trash3-fill"></i></a></TD>
+                </tr>
 
-    <a asp-action="Ajouter" class="btn btn-primary">Ajouter un Patient</a>
-</div>
+            }
+        </table>
+        <a asp-action="Ajouter" class="btn btn-primary">Ajouter un Patient</a>
+    </div>
+
+}
