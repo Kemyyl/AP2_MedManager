@@ -112,3 +112,4 @@ C:\Users\sandi\OneDrive\Bureau\AP2\AP2_MedManager\MedManager\obj\Debug\net8.0\re
 C:\Users\sandi\OneDrive\Bureau\AP2\AP2_MedManager\MedManager\obj\Debug\net8.0\MedManager.pdb
 C:\Users\sandi\OneDrive\Bureau\AP2\AP2_MedManager\MedManager\obj\Debug\net8.0\MedManager.genruntimeconfig.cache
 C:\Users\sandi\OneDrive\Bureau\AP2\AP2_MedManager\MedManager\obj\Debug\net8.0\ref\MedManager.dll
+C:\Users\sandi\OneDrive\Bureau\AP2\AP2_MedManager\MedManager\bin\Debug\net8.0\appsettings.Production.json
