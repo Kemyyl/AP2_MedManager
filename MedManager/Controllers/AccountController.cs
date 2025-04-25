@@ -50,10 +50,7 @@ public class AccountController : Controller
             ModelState.AddModelError(string.Empty, "Invalid login attempt.");
         }
 
-        
-
-
-        return View(model);
+        return View("Index", model);
     }
 
     public async Task<IActionResult> Logout()
