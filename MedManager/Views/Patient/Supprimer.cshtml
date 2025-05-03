@@ -2,12 +2,12 @@
 
 
 
-<h1>Supprimer une allergie</h1>
+<h1>Supprimer un Patient</h1>
 
 <form asp-action="Supprimer" method="post">
     <div class="form-group">
         <input type="hidden" asp-for="PatientId" />
-        <h2>Voulez vous vraiment supprimer l'allergie @Model.PatientId ?</h2>
+        <h2>Voulez vous vraiment supprimer un Patient @Model.PatientId ?</h2>
         <br />
         <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>
         <input type="submit" class="btn btn-danger" value="Supprimer" />

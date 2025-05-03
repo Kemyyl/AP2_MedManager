@@ -1,60 +1,68 @@
+@model AP2_MedManager.ViewModels.PatientViewModel
 
-@model Patient
+@{
+    ViewData["Title"] = "Ajouter un Patient";
+}
 
+<h1 class="text-center mb-6">Ajouter un Patient</h1>
 
-    <h1 class="text-center mb-6">Ajouter un Patient</h1>
+<form asp-action="Ajouter" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    <form asp-action="Ajouter" method="post">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Patient.Nom_p" class="control-label">Nom</label>
+        <input asp-for="Patient.Nom_p" class="form-control" />
+        <span asp-validation-for="Patient.Nom_p" class="text-danger"></span>
+    </div>
 
-        <div class="form-group">
-            <label asp-for="Nom_p" class="control-label">Nom</label>
-            <input asp-for="Nom_p" class="form-control" />
-            <span asp-validation-for="Nom_p" class="text-danger"></span>
+    <div class="form-group">
+        <label asp-for="Patient.Prenom_p" class="control-label">Prénom</label>
+        <input asp-for="Patient.Prenom_p" class="form-control" />
+        <span asp-validation-for="Patient.Prenom_p" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Patient.Sexe_p" class="control-label">Sexe</label>
+
+        <div class="form-check">
+            <input type="radio" asp-for="Patient.Sexe_p" class="form-check-input" value="Femme" id="sexe_f">
+            <label class="form-check-label" for="sexe_f">Femme</label>
         </div>
-        <div class="form-group">
-            <label asp-for="Prenom_p" class="control-label">Prenom</label>
-            <input asp-for="Prenom_p" class="form-control" />
-            <span asp-validation-for="Prenom_p" class="text-danger"></span>
-        </div>
-        <div>
-            <label asp-for="Sexe_p" class="control-label">Sexe</label>
 
-            <div class="form-check">
-                <input type="radio" asp-for="Sexe_p" class="form-check-input" value="Femme" id="sexe_f">
-                <label class="form-check-label" for="sexe_f">Femme</label>
-            </div>
+        <div class="form-check">
+            <input type="radio" asp-for="Patient.Sexe_p" class="form-check-input" value="Homme" id="sexe_m">
+            <label class="form-check-label" for="sexe_m">Homme</label>
+        </div>
 
-            <div class="form-check">
-                <input type="radio" asp-for="Sexe_p" class="form-check-input" value="Homme" id="sexe_m">
-                <label class="form-check-label" for="sexe_m">Homme</label>
-            </div>
+        <div class="form-check">
+            <input type="radio" asp-for="Patient.Sexe_p" class="form-check-input" value="Non genre" id="sexe_x">
+            <label class="form-check-label" for="sexe_x">Non genre</label>
+        </div>
 
-            <div class="form-check">
-                <input type="radio" asp-for="Sexe_p" class="form-check-input" value="Non genre" id="sexe_x">
-                <label class="form-check-label" for="sexe_x">Non genre</label>
-            </div>
+        <span asp-validation-for="Patient.Sexe_p" class="text-danger"></span>
+    </div>
 
-            <span asp-validation-for="Sexe_p" class="text-danger"></span>
-        </div>
-        <div>
-            <label asp-for="Age_p" class="control-label">Âge</label>
-            <input asp-for="Age_p" class="form-control" type = "date"/>
-            <span asp-validation-for="Age_p" class="text-danger"></span>
-        </div>
-        <div>
-            <label asp-for="Poids_p" class="control-label">Poids</label>
-            <input asp-for="Poids_p" class="form-control" type = "number" />
-            <span asp-validation-for="Poids_p" class="text-danger"></span>
-        </div>
-        <div>
-            <label asp-for="Num_secu" class="control-label">Numéro de sécurité social</label>
-            <input asp-for="Num_secu" class="form-control" type = "number" />
-            <span asp-validation-for="Num_secu" class="text-danger"></span>
-        </div>
-       
-        <div class="form-group">
-        </div>
-        <input type="submit" value="Ajouter Patient" class="btn btn-primary"/>
+    <div class="form-group">
+        <label asp-for="Patient.Age_p" class="control-label">Âge</label>
+        <input asp-for="Patient.Age_p" class="form-control" type="date" />
+        <span asp-validation-for="Patient.Age_p" class="text-danger"></span>
+    </div>
 
-    </form>
+    <div class="form-group">
+        <label asp-for="Patient.Poids_p" class="control-label">Poids</label>
+        <input asp-for="Patient.Poids_p" class="form-control" type="number" />
+        <span asp-validation-for="Patient.Poids_p" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Patient.Num_secu" class="control-label">Numéro de sécurité sociale</label>
+        <input asp-for="Patient.Num_secu" class="form-control" type="number" />
+        <span asp-validation-for="Patient.Num_secu" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Ajouter Patient</button>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

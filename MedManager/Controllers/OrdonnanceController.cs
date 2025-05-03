@@ -35,7 +35,7 @@ namespace AP2_MedManager.Controllers
 
             return View(ordonnances);
         }
-        [Authorize]
+       
         public async Task<IActionResult> Detail(int id)
         {
             var ordonnance = await _dbContext.Ordonnances
@@ -60,7 +60,7 @@ namespace AP2_MedManager.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
+       
         public async Task<IActionResult> Ajouter()
         {
             string? MedecinId = _userManager.GetUserId(User);
@@ -154,7 +154,7 @@ namespace AP2_MedManager.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-        [Authorize]
+       
         public async Task<IActionResult> Modifier(int id)
         {
             var ordonnance = await _dbContext.Ordonnances
